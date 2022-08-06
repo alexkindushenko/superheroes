@@ -1,12 +1,10 @@
 const Superhero = require("../../models/superhero");
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, id) => {
   try {
-    const superheroes = await Superhero.find({});
+    await Superhero.findByIdAndDelete(id);
 
-    return res.json({
-      superheroes,
-    });
+    return res.status(204).end();
   } catch (error) {
     console.log(error);
     return res.status(500).end();

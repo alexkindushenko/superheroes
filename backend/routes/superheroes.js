@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 
 const sendSuperheroes = require("../controllers/superheroes/sendSuperheroes");
-const addSuperhero = "../controllers/superheroes/addSuperhero";
+const addSuperhero = require("../controllers/superheroes/addSuperhero");
 
 router.patch("/", async (req, res) => {
   sendSuperheroes(req, res);

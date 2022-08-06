@@ -23,13 +23,13 @@ module.exports = model(
       type: String,
       required: true,
     },
-    images: {
-      type: Array,
-      required: true,
-      imgUrl: {
-        type: String,
-        required: true,
+    images: [
+      {
+        imgUrl: {
+          type: String,
+          required: true,
+        },
       },
-    },
+    ],
   })
 );

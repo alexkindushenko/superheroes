@@ -15,7 +15,24 @@ export const fetchSuperhero = createAsyncThunk(
     try {
       const res = await axios.patch(`${_apiBase}superheroes/${id}`);
 
-      if (res.statusText !== "OK") {
+      if (res.status !== 200) {
+        throw new Error();
+      }
+
+      return res.data.superhero;
+    } catch (error) {
+      return rejectWithValue();
+    }
+  }
+);
+
+export const deleteSuperhero = createAsyncThunk(
+  "superhero/deleteSuperhero",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`${_apiBase}superheroes/${id}`);
+
+      if (res.status !== 204) {
         throw new Error();
       }
 
@@ -41,6 +58,19 @@ export const superheroSlice = createSlice({
       state.superhero = action.payload;
     },
     [fetchSuperhero.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    [deleteSuperhero.pending]: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    [deleteSuperhero.fulfilled]: (state) => {
+      state.loading = false;
+      state.superhero = null;
+      state.deleted = true;
+    },
+    [deleteSuperhero.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },

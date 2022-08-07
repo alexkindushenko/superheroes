@@ -1,0 +1,21 @@
+/* .superhero {
+  margin: 20px;
+} */
+
+.superhero-img-container {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.superhero img {
+  width: 400px;
+  height: auto;
+  margin: 20px;
+}
+
+.superhero button {
+  margin: 20px;
+  width: 100px;
+}

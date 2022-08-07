@@ -1,22 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
+import { fetchSuperhero } from "../../features/superhero/superheroSlice";
 import "./Superhero.css";
 
 const Superhero = () => {
+  const { superhero, loading, error } = useSelector((state) => state.superhero);
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  const { nickname, real_name, origin_description, superpowers, catch_phrase, images } = superhero;
+
+  useEffect(() => {
+    dispatch(fetchSuperhero(id));
+  }, [dispatch, id]);
+
+  if (loading) return <h2 className="display-1 text-center">Loading...</h2>;
+  if (error) return <h2 className="display-1 text-center">Server error.</h2>;
+
   return (
-    <div className="superhero">
-      <p>Superman</p>
-      <p>Clark Kent</p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia sit harum assumenda et,
-        sapiente soluta repellat deserunt nulla delectus consectetur iusto rerum eveniet
-        accusantium, nisi asperiores. Molestiae eaque repellendus adipisci?
-      </p>
-      <p>solar energy absorption and healing factor, solar flare and heat visio</p>
-      <p>solar energy absorption and healing factor, solar flare and heat visio</p>
+    <div className="superhero text-center">
+      <h2>{nickname}</h2>
+      <p>{real_name}</p>
+      <p>{origin_description}</p>
+      <p>{superpowers}</p>
+      <p>{catch_phrase}</p>
+      <div className="superhero-img-container d-flex">
+        {images.map((img, i) => (
+          <img src={img} alt={nickname} key={i} />
+        ))}
+      </div>
       <div>
-        <img src="https://www.elcbrands.com/media/superman1.1.jpg" alt="Superman" />
-        <img src="https://www.elcbrands.com/media/superman1.1.jpg" alt="Superman" />
+        <button type="button" className="btn btn-danger">
+          Delete
+        </button>
+        <button type="button" className="btn btn-warning">
+          Edit
+        </button>
       </div>
     </div>
   );

@@ -15,8 +15,8 @@ function App() {
         <AppHeader />
         <Routes>
           <Route path="/" element={<SuperheroListPege />} />
-          <Route path="/superheros" element={<SuperheroListPege />} />
-          <Route path="/superheros/:id" element={<SuperheroPage />} />
+          <Route path="/superheroes" element={<SuperheroListPege />} />
+          <Route path="/superheroes/:id" element={<SuperheroPage />} />
           <Route path="/add_superhero" element={<EditSuperhero />} />
           <Route path="*" element={<h2 class="display-1 text-center">404 Page not found.</h2>} />
         </Routes>

@@ -10,7 +10,7 @@ const AppHeader = () => {
       <nav className="menu">
         <ul>
           <li>
-            <NavLink to="superheros">Superheros</NavLink>
+            <NavLink to="superheroes">Superheroes</NavLink>
           </li>
           <li>
             <NavLink to="add_superhero">Add superhero</NavLink>

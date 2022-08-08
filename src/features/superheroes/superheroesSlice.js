@@ -7,29 +7,35 @@ const initialState = {
   superheroes: [],
   loading: true,
   error: false,
+  currentPage: 1,
+  totalCount: 0,
 };
 
 export const fetchSuperheroes = createAsyncThunk(
   "superheroes/fetchSuperheroes",
-  async (_, { rejectWithValue }) => {
+  async (skip, { rejectWithValue }) => {
     try {
-      const res = await axios.patch(`${_apiBase}superheroes`);
+      const res = await axios.patch(`${_apiBase}superheroes?_skip=${skip}`);
 
       if (res.statusText !== "OK") {
         throw new Error();
       }
 
-      return res.data.superheroes;
+      return res.data;
     } catch (error) {
       return rejectWithValue();
     }
   }
 );
 
-export const superherosSlice = createSlice({
-  name: "superheros",
+export const superheroesSlice = createSlice({
+  name: "superheroes",
   initialState,
-
+  reducers: {
+    setCurentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+  },
   extraReducers: {
     [fetchSuperheroes.pending]: (state) => {
       state.loading = true;
@@ -38,7 +44,8 @@ export const superherosSlice = createSlice({
     },
     [fetchSuperheroes.fulfilled]: (state, action) => {
       state.loading = false;
-      state.superheroes = action.payload;
+      state.superheroes = action.payload.superheroes;
+      state.totalCount = action.payload.totalCount;
     },
     [fetchSuperheroes.rejected]: (state) => {
       state.loading = false;
@@ -47,6 +54,14 @@ export const superherosSlice = createSlice({
   },
 });
 
-export const { superheroes, loading, error } = (state) => state.superheroes;
+export const { setCurentPage } = superheroesSlice.actions;
 
-export default superherosSlice.reducer;
+export const {
+  superheroes,
+  loading,
+  error,
+  totalCount,
+  currentPage,
+} = (state) => state.superheroes;
+
+export default superheroesSlice.reducer;

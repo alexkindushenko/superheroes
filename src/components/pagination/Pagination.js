@@ -1,44 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setCurentPage } from "../../features/superheroes/superheroesSlice";
 
 import "./Pagination.css";
 
 const Pagination = () => {
+  const { currentPage, totalCount } = useSelector((state) => state.superheroes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {}, []);
+
   return (
     <nav>
       <ul className="pagination pagination-md">
-        <li className="page-item disabled">
-          <a className="page-link" href="/">
-            prev
-          </a>
-        </li>
-        <li className="page-item active" aria-current="page">
-          <span className="page-link">1</span>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="1">
-            2
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="/">
-            3
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="/">
-            4
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="/">
-            5
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="/">
-            next
-          </a>
-        </li>
+        {[...Array(Math.ceil(totalCount / 5))].map((el, i) => (
+          <li
+            className={currentPage === i + 1 ? "page-item active" : "page-item"}
+            aria-current="page"
+            key={i}
+            onClick={() => dispatch(setCurentPage(i + 1))}
+          >
+            <Link to={"?_skip=6"} className="page-link ">
+              {i + 1}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

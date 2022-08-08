@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 
 import AppHeader from "../app-header";
 import SuperheroPage from "../../pages/SuperheroPage";
@@ -15,7 +15,7 @@ function App() {
       <div className="app">
         <AppHeader />
         <Routes>
-          <Route path="/" element={<SuperheroListPege />} />
+          <Route path="/" element={<Navigate to="/superheroes" />} />
           <Route path="/superheroes" element={<SuperheroListPege />} />
           <Route path="/superheroes/:id" element={<SuperheroPage />} />
           <Route path="/superheroes/:id/edit" element={<EditSuperheroPage />} />

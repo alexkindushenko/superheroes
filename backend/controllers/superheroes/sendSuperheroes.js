@@ -1,11 +1,14 @@
 const Superhero = require("../../models/superhero");
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, skip) => {
   try {
-    const superheroes = await Superhero.find({});
+    const intSkip = parseInt(skip);
+
+    const superheroes = await Superhero.find();
 
     return res.json({
-      superheroes,
+      superheroes: superheroes.slice(intSkip, intSkip + 5),
+      totalCount: superheroes.length,
     });
   } catch (error) {
     console.log(error);

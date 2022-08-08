@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import EditSuperhero from "../components/edit-superhero";
+import { addSuperhero, clearSuperhero } from "../features/superhero/superheroSlice";
 
 const AddSuperheroPage = () => {
-  return <EditSuperhero />;
+  const { superhero } = useSelector((state) => state.superhero);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearSuperhero());
+  });
+
+  if (superhero) return <h2>...</h2>;
+  return <EditSuperhero sendSuperhero={addSuperhero} />;
 };
 
 export default AddSuperheroPage;

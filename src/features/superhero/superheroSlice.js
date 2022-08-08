@@ -7,6 +7,7 @@ const initialState = {
   superhero: null,
   status: "idle",
   isUpdate: false,
+  isAdd: false,
 };
 
 export const fetchSuperhero = createAsyncThunk(
@@ -61,9 +62,35 @@ export const updeteSuperhero = createAsyncThunk(
   }
 );
 
+export const addSuperhero = createAsyncThunk(
+  "superhero/addSuperhero",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    try {
+      const res = await axios.post(`${_apiBase}superheroes`, { ...data });
+
+      console.log(res);
+
+      if (res.status !== 201) {
+        throw new Error();
+      }
+
+      return res.data.superhero;
+    } catch (error) {
+      return rejectWithValue();
+    }
+  }
+);
+
 export const superheroSlice = createSlice({
   name: "superhero",
   initialState,
+
+  reducers: {
+    clearSuperhero: (state) => {
+      state.superhero = null;
+    },
+  },
 
   extraReducers: {
     [fetchSuperhero.pending]: (state) => {
@@ -74,6 +101,7 @@ export const superheroSlice = createSlice({
       state.status = "idle";
       state.superhero = action.payload;
       state.isUpdate = false;
+      state.isAdd = false;
     },
     [fetchSuperhero.rejected]: (state) => {
       state.status = "error";
@@ -99,8 +127,22 @@ export const superheroSlice = createSlice({
     [updeteSuperhero.rejected]: (state) => {
       state.status = "error";
     },
+    [addSuperhero.pending]: (state) => {
+      state.status = "loading";
+      state.superhero = null;
+    },
+    [addSuperhero.fulfilled]: (state, action) => {
+      state.status = "idle";
+      state.superhero = action.payload;
+      state.isAdd = true;
+    },
+    [addSuperhero.rejected]: (state) => {
+      state.status = "error";
+    },
   },
 });
+
+export const { clearSuperhero } = superheroSlice.actions;
 
 export const { superhero, loading, error } = (state) => state.superhero;
 

@@ -5,7 +5,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import "./EditSuperhero.css";
 
 const EditSuperhero = ({ sendSuperhero }) => {
-  const { superhero, status, isUpdate } = useSelector((state) => state.superhero);
+  const { superhero, status, isUpdate, isAdd } = useSelector((state) => state.superhero);
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -31,7 +31,7 @@ const EditSuperhero = ({ sendSuperhero }) => {
 
   if (status === "loading") return <h2 className="display-1 text-center">Loading...</h2>;
   if (status === "error") return <h2 className="display-1 text-center">Server error.</h2>;
-  if (isUpdate) return <Navigate to={`/superheroes/${superhero._id}`} />;
+  if (isUpdate || isAdd) return <Navigate to={`/superheroes/${superhero._id}`} />;
 
   return (
     <div className="edit-superhero">
@@ -134,7 +134,7 @@ const EditSuperhero = ({ sendSuperhero }) => {
                 origin_description,
                 superpowers,
                 catch_phrase,
-                images,
+                images: images.filter((el) => el.length),
                 id: superhero._id,
               })
             )

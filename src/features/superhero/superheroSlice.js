@@ -4,9 +4,9 @@ import axios from "axios";
 import { _apiBase } from "../../app/constants";
 
 const initialState = {
-  superhero: {},
-  loading: true,
-  error: false,
+  superhero: null,
+  status: "idle",
+  isUpdate: false,
 };
 
 export const fetchSuperhero = createAsyncThunk(
@@ -43,36 +43,61 @@ export const deleteSuperhero = createAsyncThunk(
   }
 );
 
+export const updeteSuperhero = createAsyncThunk(
+  "superhero/updateSuperhero",
+  async (data, { rejectWithValue }) => {
+    const { id, ...otherData } = data;
+    try {
+      const res = await axios.put(`${_apiBase}superheroes/${id}`, { ...otherData });
+
+      if (res.status !== 201) {
+        throw new Error();
+      }
+
+      return res.data.superhero;
+    } catch (error) {
+      return rejectWithValue();
+    }
+  }
+);
+
 export const superheroSlice = createSlice({
   name: "superhero",
   initialState,
 
   extraReducers: {
     [fetchSuperhero.pending]: (state) => {
-      state.loading = true;
-      state.error = false;
-      state.superhero = {};
+      state.status = "loading";
+      state.superhero = null;
     },
     [fetchSuperhero.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.status = "idle";
       state.superhero = action.payload;
+      state.isUpdate = false;
     },
     [fetchSuperhero.rejected]: (state) => {
-      state.loading = false;
-      state.error = true;
+      state.status = "error";
     },
     [deleteSuperhero.pending]: (state) => {
-      state.loading = true;
-      state.error = false;
+      state.status = "loading";
     },
     [deleteSuperhero.fulfilled]: (state) => {
-      state.loading = false;
+      state.status = "idle";
       state.superhero = null;
-      state.deleted = true;
     },
     [deleteSuperhero.rejected]: (state) => {
-      state.loading = false;
-      state.error = true;
+      state.status = "error";
+    },
+    [updeteSuperhero.pending]: (state) => {
+      state.status = "loading";
+    },
+    [updeteSuperhero.fulfilled]: (state, action) => {
+      state.status = "idle";
+      state.superhero = action.payload;
+      state.isUpdate = true;
+    },
+    [updeteSuperhero.rejected]: (state) => {
+      state.status = "error";
     },
   },
 });

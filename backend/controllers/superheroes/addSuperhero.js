@@ -1,4 +1,5 @@
 const Superhero = require("../../models/superhero");
+const { Types } = require("mongoose");
 
 module.exports = async (req, res) => {
   try {
@@ -11,6 +12,7 @@ module.exports = async (req, res) => {
       superpowers,
       catch_phrase,
       images,
+      _id: Types.ObjectId(),
     });
 
     await superhero.save();

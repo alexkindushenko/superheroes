@@ -13,7 +13,7 @@ const AppHeader = () => {
             <NavLink to="superheroes">Superheroes</NavLink>
           </li>
           <li>
-            <NavLink to="add_superhero">Add superhero</NavLink>
+            <NavLink to="/superheroes/add_superhero">Add superhero</NavLink>
           </li>
         </ul>
       </nav>

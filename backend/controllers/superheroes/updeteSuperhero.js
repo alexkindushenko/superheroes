@@ -13,7 +13,17 @@ module.exports = async (req, res, id) => {
       images,
     });
 
-    return res.status(204).end();
+    return res.status(201).json({
+      superhero: {
+        nickname,
+        real_name,
+        origin_description,
+        superpowers,
+        catch_phrase,
+        images,
+        _id: id,
+      },
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).end();

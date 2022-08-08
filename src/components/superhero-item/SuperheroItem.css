@@ -15,8 +15,9 @@
   position: absolute;
   text-align: center;
   margin: 0;
+  padding: 0 20px;
   line-height: 50px;
-  width: 170px;
+  width: fit-content;
   background: white;
   border-bottom-right-radius: 30px;
 }

@@ -25,10 +25,22 @@ const Superhero = () => {
   return (
     <div className="superhero text-center">
       <h2>{nickname}</h2>
-      <p>{real_name}</p>
-      <p>{origin_description}</p>
-      <p>{superpowers}</p>
-      <p>{catch_phrase}</p>
+      <p>
+        <span>Name: </span>
+        {real_name}
+      </p>
+      <p>
+        <span>Description: </span>
+        {origin_description}
+      </p>
+      <p>
+        <span>Superpowers: </span>
+        {superpowers}
+      </p>
+      <p>
+        <span>Catch frase: </span>
+        {catch_phrase}
+      </p>
       <div className="superhero-img-container d-flex">
         {images.map((img, i) => (
           <img src={img} alt={nickname} key={i} />

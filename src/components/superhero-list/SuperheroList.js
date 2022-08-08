@@ -17,6 +17,8 @@ const SuperheroList = () => {
 
   if (loading) return <h2 className="display-1 text-center">Loading...</h2>;
   if (error) return <h2 className="display-1 text-center">Server error.</h2>;
+  if (!superheroes.length)
+    return <h2 className="display-1 text-center">Please add superheroes.</h2>;
 
   return (
     <div className="superhero-list">

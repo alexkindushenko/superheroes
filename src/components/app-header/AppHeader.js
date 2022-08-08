@@ -6,7 +6,10 @@ import "./AppHeader.css";
 const AppHeader = () => {
   return (
     <div className="app-header">
-      <div className="logo">Superheros</div>
+      <div className="logo">
+        <NavLink to="superheroes">Superheroes</NavLink>
+      </div>
+
       <nav className="menu">
         <ul>
           <li>

@@ -11,7 +11,9 @@ module.exports = async (req, res) => {
       origin_description,
       superpowers,
       catch_phrase,
-      images,
+      images: !images.length
+        ? (images[0] = "https://gentwenty.com/wp-content/uploads/2013/07/Superheroes.jpg")
+        : images,
       _id: Types.ObjectId(),
     });
 

@@ -5,7 +5,9 @@ import { Navigate, useLocation } from "react-router-dom";
 import "./EditSuperhero.css";
 
 const EditSuperhero = ({ sendSuperhero }) => {
-  const { superhero, status, isUpdate, isAdd } = useSelector((state) => state.superhero);
+  const { superhero, superheroId, status, isUpdate, isAdd } = useSelector(
+    (state) => state.superhero
+  );
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -29,16 +31,31 @@ const EditSuperhero = ({ sendSuperhero }) => {
     !catch_phrase.trim() ||
     !origin_description.trim();
 
+  const handleSendSuperhero = () => {
+    dispatch(
+      sendSuperhero({
+        nickname,
+        real_name,
+        origin_description,
+        superpowers,
+        catch_phrase,
+        images: images.filter((el) => el.length),
+        id: superhero ? superhero._id : "",
+      })
+    );
+  };
+
   if (status === "loading") return <h2 className="display-1 text-center">Loading...</h2>;
   if (status === "error") return <h2 className="display-1 text-center">Server error.</h2>;
-  if (isUpdate || isAdd) return <Navigate to={`/superheroes/${superhero._id}`} />;
+  if (isUpdate) return <Navigate to={`/superheroes/${superhero._id}`} />;
+  if (isAdd) return <Navigate to={`/superheroes/${superheroId}`} />;
 
   return (
     <div className="edit-superhero">
       <h2>
         {location.pathname === "/superheroes/add_superhero" ? "Add superhero" : "Update superhero"}
       </h2>
-      <form>
+      <div>
         <div className="mb-3">
           <input
             className="form-control"
@@ -126,24 +143,12 @@ const EditSuperhero = ({ sendSuperhero }) => {
         <button
           disabled={btnDisabled}
           type="button"
-          onClick={() =>
-            dispatch(
-              sendSuperhero({
-                nickname,
-                real_name,
-                origin_description,
-                superpowers,
-                catch_phrase,
-                images: images.filter((el) => el.length),
-                id: superhero._id,
-              })
-            )
-          }
+          onClick={() => handleSendSuperhero()}
           className="btn btn-primary"
         >
           Send Superhero
         </button>
-      </form>
+      </div>
     </div>
   );
 };

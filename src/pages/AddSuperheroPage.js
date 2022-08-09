@@ -10,7 +10,7 @@ const AddSuperheroPage = () => {
 
   useEffect(() => {
     dispatch(clearSuperhero());
-  });
+  }, [dispatch, superhero]);
 
   if (superhero) return <h2>...</h2>;
   return <EditSuperhero sendSuperhero={addSuperhero} />;

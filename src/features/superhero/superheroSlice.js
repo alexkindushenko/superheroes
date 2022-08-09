@@ -5,6 +5,7 @@ import { _apiBase } from "../../app/constants";
 
 const initialState = {
   superhero: null,
+  superheroId: "",
   status: "idle",
   isUpdate: false,
   isAdd: false,
@@ -65,11 +66,8 @@ export const updeteSuperhero = createAsyncThunk(
 export const addSuperhero = createAsyncThunk(
   "superhero/addSuperhero",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const res = await axios.post(`${_apiBase}superheroes`, { ...data });
-
-      console.log(res);
 
       if (res.status !== 201) {
         throw new Error();
@@ -134,6 +132,7 @@ export const superheroSlice = createSlice({
     [addSuperhero.fulfilled]: (state, action) => {
       state.status = "idle";
       state.superhero = action.payload;
+      state.superheroId = action.payload._id;
       state.isAdd = true;
     },
     [addSuperhero.rejected]: (state) => {

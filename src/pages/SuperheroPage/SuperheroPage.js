@@ -1,5 +1,5 @@
 import React from "react";
-import Superhero from "../components/superhero";
+import Superhero from "../../components/superhero";
 
 const SuperheroPage = () => {
   return <Superhero />;

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import EditSuperhero from "../components/edit-superhero";
-import { addSuperhero, clearSuperhero } from "../features/superhero/superheroSlice";
+import EditSuperhero from "../../components/edit-superhero";
+import { addSuperhero, clearSuperhero } from "../../features/superhero/superheroSlice";
 
 const AddSuperheroPage = () => {
   const { superhero } = useSelector((state) => state.superhero);

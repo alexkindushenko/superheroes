@@ -21,3 +21,9 @@
   background: white;
   border-bottom-right-radius: 30px;
 }
+
+@media only screen and (orientation: portrait) {
+  .superhero-item {
+    height: fit-content;
+  }
+}

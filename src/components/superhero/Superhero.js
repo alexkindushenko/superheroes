@@ -41,9 +41,11 @@ const Superhero = () => {
         <span>Catch frase: </span>
         {catch_phrase}
       </p>
-      <div className="superhero-img-container d-flex">
+      <div className="superhero-img-container">
         {images.map((img, i) => (
-          <img src={img} alt={nickname} key={i} />
+          <div className="superhero-img" key={i}>
+            <img src={img} alt={nickname} key={i} />
+          </div>
         ))}
       </div>
       <div>

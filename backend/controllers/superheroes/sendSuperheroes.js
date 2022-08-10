@@ -7,7 +7,7 @@ module.exports = async (req, res, skip) => {
     const superheroes = await Superhero.find();
 
     return res.json({
-      superheroes: superheroes.slice(intSkip, intSkip + 5),
+      superheroes: superheroes.reverse().slice(intSkip, intSkip + 5),
       totalCount: superheroes.length,
     });
   } catch (error) {

@@ -16,7 +16,7 @@ export const fetchSuperheroes = createAsyncThunk(
   async (skip, { rejectWithValue }) => {
     try {
       const res = await axios.patch(`${_apiBase}superheroes?_skip=${skip}`);
-
+      console.log(res.data);
       if (res.statusText !== "OK") {
         throw new Error();
       }

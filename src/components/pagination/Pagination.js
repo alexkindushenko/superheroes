@@ -38,7 +38,7 @@ const Pagination = () => {
           </li>
         ))}
 
-        <li className={currentPage > totalCount / 5 ? "page-item disabled" : "page-item"}>
+        <li className={currentPage >= totalCount / 5 ? "page-item disabled" : "page-item"}>
           <Link
             className="page-link"
             to={`?_skip=${currentPage * 5}`}

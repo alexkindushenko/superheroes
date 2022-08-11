@@ -10,10 +10,6 @@ const Pagination = () => {
   const { currentPage, pageCount } = useSelector((state) => state.superheroes);
   const dispatch = useDispatch();
 
-  // useEffect(() => {}, [currentPage]);
-
-  console.log(currentPage);
-
   return (
     <nav>
       <ul className="pagination pagination-md">

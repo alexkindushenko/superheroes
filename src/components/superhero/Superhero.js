@@ -17,7 +17,7 @@ const Superhero = () => {
   }, [dispatch, id]);
 
   if (status === "loading") return <h2 className="display-1 text-center">Loading...</h2>;
-  if (status === "error") return <h2 className="display-1 text-center">Server error.</h2>;
+  if (status === "error") return <h2 className="display-1 text-center">Superhero not found.</h2>;
   if (!superhero) return <h2 className="display-1 text-center">Suprhero was deleted.</h2>;
 
   const { nickname, real_name, origin_description, superpowers, catch_phrase, images } = superhero;

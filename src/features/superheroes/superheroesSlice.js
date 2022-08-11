@@ -8,14 +8,14 @@ const initialState = {
   loading: true,
   error: false,
   currentPage: 1,
-  totalCount: 0,
+  pageCount: 0,
 };
 
 export const fetchSuperheroes = createAsyncThunk(
   "superheroes/fetchSuperheroes",
-  async (skip, { rejectWithValue }) => {
+  async (page, { rejectWithValue }) => {
     try {
-      const res = await axios.patch(`${_apiBase}superheroes?_skip=${skip}`);
+      const res = await axios.patch(`${_apiBase}superheroes?_page=${page}`);
       console.log(res.data);
       if (res.statusText !== "OK") {
         throw new Error();
@@ -45,7 +45,8 @@ export const superheroesSlice = createSlice({
     [fetchSuperheroes.fulfilled]: (state, action) => {
       state.loading = false;
       state.superheroes = action.payload.superheroes;
-      state.totalCount = action.payload.totalCount;
+      state.pageCount = action.payload.pageCount;
+      state.currentPage = action.payload.currentPage;
     },
     [fetchSuperheroes.rejected]: (state) => {
       state.loading = false;

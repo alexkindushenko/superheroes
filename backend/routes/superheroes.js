@@ -8,7 +8,7 @@ const deleteSuperhero = require("../controllers/superheroes/deleteSuperhero");
 const updeteSuperhero = require("../controllers/superheroes/updeteSuperhero");
 
 router.patch("/", async (req, res) => {
-  sendSuperheroes(req, res, req.query._skip);
+  sendSuperheroes(req, res, req.query._page);
 });
 
 router.patch("/:id", async (req, res) => {

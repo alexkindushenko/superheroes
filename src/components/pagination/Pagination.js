@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -9,10 +9,6 @@ import "./Pagination.css";
 const Pagination = () => {
   const { currentPage, pageCount } = useSelector((state) => state.superheroes);
   const dispatch = useDispatch();
-
-  // useEffect(() => {}, [currentPage]);
-
-  console.log(currentPage);
 
   return (
     <nav>

@@ -13,7 +13,7 @@ const SuperheroList = () => {
 
   const _page = searchParams.get("_page");
 
-  const { superheroes, loading, error } = useSelector((state) => state.superheroes);
+  const { superheroes, loading, error, pageCount } = useSelector((state) => state.superheroes);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +23,8 @@ const SuperheroList = () => {
 
   if (loading) return <h2 className="display-1 text-center">Loading...</h2>;
   if (error) return <h2 className="display-1 text-center">Server error.</h2>;
+  if (!superheroes.length && _page > pageCount)
+    return <h2 className="display-1 text-center">Page not found.</h2>;
   if (!superheroes.length)
     return <h2 className="display-1 text-center">Please add superheroes.</h2>;
 
